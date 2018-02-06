@@ -7,9 +7,15 @@ var axios = require('axios');
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post("/starwars", (req,res) => {
+// app.post("/starwars", (req,res) => {
+//     var param=req.body.param;
+//     axios.get('http://api.icndb.com/jokes/random?firstName=John&amp;lastName=Doe').then((apires)=>{
+//         res.send(apires.data);
+//     })
+// })
+app.post("/joke", (req,res) => {
     var param=req.body.param;
-    axios.get('https://swapi.co/api/people/?search='+param).then((apires)=>{
+    axios.get('http://api.icndb.com/jokes/random?firstName='+firstName+'&lastName='+lastName).then((apires)=>{
         res.send(apires.data);
     })
 })
