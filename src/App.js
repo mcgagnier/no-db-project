@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import * as axios from 'axios';
+var firstName="Tracie";
+var lastName="Gagnier";
 
-function getHello() {
-  return axios.post('http://localhost:8686/starwars', { param: 'anakin'})
+function getJoke(firstName, lastName) {
+  return axios.post('http://api.icndb.com/jokes/random?firstName='+firstName+'&lastName='+lastName)
     .then((res)=> {
-      return res.data.results[0].name;
+      console.log(res)
+      return res.data.value.joke;
     });
 }
 
@@ -18,26 +20,49 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: 'None'
+      joke: 'None',
+      firstName: 'Chuck',
+      lastName: 'Norris'
     }
+    // this.updateFirstName = this.updateFirstName.bind(this)
+    // this.updateLastName = this.updateLastName.bind(this)
 
-    getHello().then(message => {
+
+    // updateFirstName(event) {
+    //   this.setState({
+    //     firstName: event.target.value
+    //   });
+    // };
+    // updateLastName(event) {
+    //   this.setState({
+    //     lastName: event.target.value
+    //   });
+    // };
+
+    getJoke().then(joke => {
       this.setState({
-        message
+        joke
       });
     });
   }
+ 
   render() {
-    getHello();
+    // getJoke();
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <AppHeader greeting="Welcome to The G Spot" />
+          <AppHeader greeting="Be Chuck Norris" />
+          <input 
+          onChange={ this.updateFirstName } 
+          placeholder="First Name"/>
+          <input 
+          onChange={ this.updateFirstName } 
+          placeholder="Last Name"/>
+          <button>Be like Chuck</button>
         </header>
-        <p>{this.state.message}</p>
+        <p>{this.state.joke}</p>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          Enter your name above and enter the world of Chuck Norris
         </p>
       </div>
     );
