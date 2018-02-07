@@ -16,16 +16,23 @@ app.use(cors());
 
 var favoriteJokes = ['This is a fake joke'];
 
-app.post("/joke", (req,res) => {
-    console.log('this one')
-    var param=req.body.param;
+// app.post("/joke", (req,res) => {
+//     console.log('this one')              
+//     var param=req.body.param;
 
-})
+// })
 
 app.get('/favorites', (req, res) => {
     // console.log('running')
     res.send(favoriteJokes)
-})
+});
+
+// app.post('/favorites', (req, res) => {
+//     favoriteJokes.push(req.body);
+//     res.send(favoriteJokes)
+// });
+
+// need post from the front end, passing in the data for the list
 
 app.get("/hello", (req,res)=> {
     res.send('hello world');
