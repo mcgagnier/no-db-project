@@ -34,20 +34,25 @@ class App extends Component {
     this.getJoke()
     this.getFavorites()
   }
-
+  getFavorites = () => {
+    axios.get('http://localhost:8686/favorites').then(response=> {
+      this.setState({ favorites: response.data })
+    }).catch(error => console.log('this is error', error))
+  }
   getFavorites = () => {
     axios.get('http://localhost:8686/favorites').then(response=> {
       this.setState({ favorites: response.data })
     }).catch(error => console.log('this is error', error))
   }
 
-  getJoke = (firstName, lastName) => {
-    console.log(this.state,firstName, this.state.lastName, 'running')
-    return axios.post('http://api.icndb.com/jokes/random?firstName='+this.state.firstName+'&lastName='+this.state.lastName)
-      .then((res)=> {
-        console.log(res)
-        this.setState({ joke: res.data.value.joke })
-      });
+  getJoke = () => {
+    console.log(this.state.firstName, this.state.lastName);
+    axios.get(`http://localhost:8686/jokes`).then((response) => {
+      this.setState({
+        joke: response.data.value.joke
+      })
+
+    })
   }
  
   render() {
@@ -64,7 +69,7 @@ class App extends Component {
           placeholder="Last Name"/>
           <button onClick={this.getJoke}>Be like Chuck</button>
         </header>
-        <p>{this.state.joke}</p>
+        <h3 className="Joke">{this.state.joke}</h3>
         <p className="App-intro">
           Enter your name above and enter the world of Chuck Norris
         </p>

@@ -22,6 +22,7 @@ var favoriteJokes = ['This is a fake joke'];
 
 // })
 
+
 app.get('/favorites', (req, res) => {
     // console.log('running')
     res.send(favoriteJokes)
@@ -31,6 +32,20 @@ app.get('/favorites', (req, res) => {
 //     favoriteJokes.push(req.body);
 //     res.send(favoriteJokes)
 // });
+
+var firstName="joe";
+var lastName="mama";
+
+app.get('/jokes', (req, res) => {
+    console.log('clicking back')
+    axios.get(`http://api.icndb.com/jokes/random?firstName=`+firstName+`&lastName=`+lastName).then((response) => {
+      res.send(response.data);
+    })
+    .catch(err => {
+      console.log('this is the err', err)
+    })
+  
+  })
 
 // need post from the front end, passing in the data for the list
 
