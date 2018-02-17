@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import * as axios from 'axios';
 
+function getJokes(firstName, lastName) {
+  return axios.get(`http://localhost:8686/jokes`, {
+    params: {
+      firstName,
+      lastName
+    }
+  }).then((response) => {
+    return response.data.value.joke;
+  });
+}
+
 function AppHeader(props) {
   return <h1 className="App-title">{props.greeting}</h1>
 }
@@ -32,12 +43,7 @@ class App extends Component {
 
   componentDidMount () {
     this.getJoke()
-    this.getFavorites()
-  }
-  getFavorites = () => {
-    axios.get('http://localhost:8686/favorites').then(response=> {
-      this.setState({ favorites: response.data })
-    }).catch(error => console.log('this is error', error))
+    // this.getFavorites()
   }
   getFavorites = () => {
     axios.get('http://localhost:8686/favorites').then(response=> {
@@ -47,12 +53,11 @@ class App extends Component {
 
   getJoke = () => {
     console.log(this.state.firstName, this.state.lastName);
-    axios.get(`http://localhost:8686/jokes`).then((response) => {
+    getJokes(this.state.firstName, this.state.lastName).then(joke => {
       this.setState({
-        joke: response.data.value.joke
-      })
-
-    })
+        joke
+      });
+    });
   }
  
   render() {

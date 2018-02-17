@@ -33,14 +33,18 @@ app.get('/favorites', (req, res) => {
 //     res.send(favoriteJokes)
 // });
 
-var firstName="joe";
-var lastName="mama";
+// var firstName="joe";
+// var lastName="mama";
 
 app.get('/jokes', (req, res) => {
     console.log('clicking back')
-    axios.get(`http://api.icndb.com/jokes/random?firstName=`+firstName+`&lastName=`+lastName).then((response) => {
-      res.send(response.data);
+    axios.get('http://api.icndb.com/jokes/random', {
+        params: {
+            firstName: req.query.firstName,
+            lastName: req.query.lastName
+        }
     })
+    .then(response => res.send(response.data))
     .catch(err => {
       console.log('this is the err', err)
     })
