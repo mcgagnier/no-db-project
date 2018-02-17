@@ -4,9 +4,9 @@
 
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+  background-color: rgba(34, 34, 34, 0.475);
+  height: 250px;
+  padding: 10px;
   color: white;
 }
 header, app-header {
@@ -14,28 +14,38 @@ header, app-header {
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 3.5em;
 }
 
 .App-intro {
-  font-size: large;
+  font-size: 1.3em;
+  font-weight: bold;
+  position: fixed;
+  bottom: 0;
+  margin: 0px 0px 30px 0px;
+  width: 100%;
+
 }
 
 .Joke {
-  max-width: 70%;
+  max-width: 60%;
   margin: auto;
-  padding: 20px;
-  font-size: 1.5em;
+  padding: 30px;
+  font-size: 2.3em;
+  line-height: 1.5em;
 }
 
 input {
   margin: 5px;
-  padding: 2px;
+  padding: 3px;
   font-size: 15px;
 }
 button {
-  padding: 3px 10px;
-  background-color: antiquewhite;
-  border-radius: 3px;
+  padding: 5px 15px;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
   font-size: 16px;
+  margin-left: 3px;
+  font-weight: bold;
 }

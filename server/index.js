@@ -28,17 +28,26 @@ app.get('/favorites', (req, res) => {
     res.send(favoriteJokes)
 });
 
-// app.post('/favorites', (req, res) => {
-//     favoriteJokes.push(req.body);
-//     res.send(favoriteJokes)
-// });
 
-// var firstName="joe";
-// var lastName="mama";
 
 app.get('/jokes', (req, res) => {
     console.log('clicking back')
-    axios.get('http://api.icndb.com/jokes/random', {
+    axios.get('http://api.icndb.com/jokes/random?exclude=[nerdy]', {
+        params: {
+            firstName: req.query.firstName,
+            lastName: req.query.lastName
+        }
+    })
+    .then(response => res.send(response.data))
+    .catch(err => {
+      console.log('this is the err', err)
+    })
+  
+  })
+
+  app.get('/jokesNerdy', (req, res) => {
+    console.log('clicking back')
+    axios.get('http://api.icndb.com/jokes/random?limitTo=[nerdy]', {
         params: {
             firstName: req.query.firstName,
             lastName: req.query.lastName

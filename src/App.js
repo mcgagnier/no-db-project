@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
 import * as axios from 'axios';
+import Button from './Button'
 
 function getJokes(firstName, lastName) {
   return axios.get(`http://localhost:8686/jokes`, {
+    params: {
+      firstName,
+      lastName
+    }
+  }).then((response) => {
+    return response.data.value.joke;
+  });
+}
+function getJokesNerdy(firstName, lastName) {
+  return axios.get(`http://localhost:8686/jokesNerdy`, {
     params: {
       firstName,
       lastName
@@ -45,15 +56,23 @@ class App extends Component {
     this.getJoke()
     // this.getFavorites()
   }
-  getFavorites = () => {
-    axios.get('http://localhost:8686/favorites').then(response=> {
-      this.setState({ favorites: response.data })
-    }).catch(error => console.log('this is error', error))
-  }
+  // getFavorites = () => {
+  //   axios.get('http://localhost:8686/favorites').then(response=> {
+  //     this.setState({ favorites: response.data })
+  //   }).catch(error => console.log('this is error', error))
+  // }
 
   getJoke = () => {
     console.log(this.state.firstName, this.state.lastName);
     getJokes(this.state.firstName, this.state.lastName).then(joke => {
+      this.setState({
+        joke
+      });
+    });
+  }
+  getJokeNerdy = () => {
+    console.log(this.state.firstName, this.state.lastName);
+    getJokesNerdy(this.state.firstName, this.state.lastName).then(joke => {
       this.setState({
         joke
       });
@@ -73,14 +92,16 @@ class App extends Component {
           onChange={ this.updateLastName } 
           placeholder="Last Name"/>
           <button onClick={this.getJoke}>Be like Chuck</button>
+          <button onClick={this.getJokeNerdy}>Nerdy Chuck</button>
+
         </header>
-        <h3 className="Joke">{this.state.joke}</h3>
+        <h1 className="Joke">{this.state.joke}</h1>
         <p className="App-intro">
           Enter your name above and enter the world of Chuck Norris
         </p>
 
 
-        <div style={{marginTop: 100}} >Display Favorites</div>
+        <div style={{marginTop: 100}} ></div>
         {this.state.favorites}
       </div>
     );
